@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.fx10.controlador.DashboardController"
+      spacing="20" style="-fx-background-color: #f5f5f5;">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+
+    <Label text="Dashboard de Productos" style="-fx-text-fill: #2c3e50;">
+        <font>
+            <Font name="System Bold" size="28"/>
+        </font>
+    </Label>
+
+
+    <VBox fx:id="contenedorDinamico" alignment="CENTER" spacing="15">
+
+        <Button text="Formulario Producto" onAction="#mostrarFormularioProducto"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 8;"/>
+        <Button text="Lista de Productos" onAction="#mostrarListaProductos"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 12 30; -fx-background-radius: 8;"/>
+    </VBox>
+
+</VBox>
