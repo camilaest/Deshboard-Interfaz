@@ -1,7 +1,8 @@
 package co.edu.uniquindio.fx10.controlador;
 
 import co.edu.uniquindio.fx10.modelo.Propiedad;
-import co.edu.uniquindio.fx10.modelo.PropiedadRepository;
+import co.edu.uniquindio.fx10.ViewController.PropiedadRepository;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,18 +13,23 @@ import javafx.scene.layout.VBox;
  * Controlador para el formulario de creación de propiedades
  */
 public class FormularioPropiedadController {
+    @FXML
+    private TextField txtDireccion;
 
     @FXML
-    private TextField txtCodigo;
+    private TextField txtciudad;
 
     @FXML
-    private TextField txtNombre;
+    private TextField txtnhabitaciones;
 
     @FXML
-    private TextField txtDescripcion;
+    private TextField txtnpisos;
 
     @FXML
-    private TextField txtPrecio;
+    private TextField txtprecio;
+
+    @FXML
+    private TextField txtdireccion;
 
     @FXML
     private Button btnGuardar;
@@ -37,7 +43,7 @@ public class FormularioPropiedadController {
 
     @FXML
     public void initialize() {
-        propiedadRepository = PropiedadRepository.getInstance(); // ✅ método Singleton
+        propiedadRepository = PropiedadRepository.getInstance();
     }
 
     public void setDashboardController(DashboardController dashboardController) {
@@ -52,19 +58,20 @@ public class FormularioPropiedadController {
         if (!validarCampos()) return;
 
         try {
-            String codigo = txtCodigo.getText().trim();
-            String nombre = txtNombre.getText().trim();
-            String descripcion = txtDescripcion.getText().trim();
-            double precio = Double.parseDouble(txtPrecio.getText().trim());
+            String ciudad = txtciudad.getText().trim();
+            String nHabitaciones = txtnhabitaciones.getText().trim();
+            String nPisos = txtnpisos.getText().trim();
+            double precio = Double.parseDouble(txtprecio.getText().trim());
+            String direccion = txtdireccion.getText().trim();
 
             // Verificar si el código ya existe
-            if (propiedadRepository.buscarPorCodigo(codigo) != null) {
+            if (propiedadRepository.buscarPorDireccion(direccion) != null) {
                 mostrarAlerta("Error", "Ya existe una propiedad con ese código", Alert.AlertType.ERROR);
                 return;
             }
 
             // Crear y guardar la nueva propiedad
-            Propiedad nuevaPropiedad = new Propiedad(codigo, nombre, descripcion, precio);
+            Propiedad nuevaPropiedad = new Propiedad("armenia", 5, 6, 30, "e2");
             propiedadRepository.agregarPropiedad(nuevaPropiedad);
 
             mostrarAlerta("Éxito", "Propiedad registrada correctamente", Alert.AlertType.INFORMATION);
@@ -90,19 +97,19 @@ public class FormularioPropiedadController {
      * Valida que todos los campos tengan datos
      */
     private boolean validarCampos() {
-        if (txtCodigo.getText().trim().isEmpty()) {
-            mostrarAlerta("Error de validación", "El código es obligatorio", Alert.AlertType.WARNING);
+        if (txtciudad.getText().trim().isEmpty()) {
+            mostrarAlerta("Error de validación", "La ciudad es obligatorio", Alert.AlertType.WARNING);
             return false;
         }
-        if (txtNombre.getText().trim().isEmpty()) {
-            mostrarAlerta("Error de validación", "El nombre es obligatorio", Alert.AlertType.WARNING);
+        if (txtnpisos.getText().trim().isEmpty()) {
+            mostrarAlerta("Error de validación", "Cantidad de pisos obligatoria", Alert.AlertType.WARNING);
             return false;
         }
-        if (txtDescripcion.getText().trim().isEmpty()) {
-            mostrarAlerta("Error de validación", "La descripción es obligatoria", Alert.AlertType.WARNING);
+        if (txtnhabitaciones.getText().trim().isEmpty()) {
+            mostrarAlerta("Error de validación", "La cantidad de habitaciones es obligatoria", Alert.AlertType.WARNING);
             return false;
         }
-        if (txtPrecio.getText().trim().isEmpty()) {
+        if (txtprecio.getText().trim().isEmpty()) {
             mostrarAlerta("Error de validación", "El precio es obligatorio", Alert.AlertType.WARNING);
             return false;
         }
@@ -116,4 +123,37 @@ public class FormularioPropiedadController {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+
+    public void onGuardarProducto(ActionEvent actionEvent) {
+        if (!validarCampos()) {
+            return;
+        }
+
+        try {
+            String codigo = txtciudad.getText().trim();
+            String nombre = txtnhabitaciones.getText().trim();
+            String nhabitaciones = txtnpisos.getText().trim();
+            double npisos = Double.parseDouble(txtprecio.getText().trim());
+            String direccion = txtDireccion.getText().trim();
+
+            // Verificar si el código ya existe
+            if (propiedadRepository.buscarPorDireccion(codigo) != null) {
+                mostrarAlerta("Error", "Ya existe un producto con ese código", Alert.AlertType.ERROR);
+                return;
+            }
+
+            // Crear y guardar el producto
+            Propiedad nuevoPropiedad = new Propiedad("arm", 5, 6, 7000, "ss3");
+            propiedadRepository.agregarPropiedad(nuevoPropiedad);
+
+            mostrarAlerta("Éxito", "Producto creado correctamente", Alert.AlertType.INFORMATION);
+
+            // Volver al dashboard
+            volverAlDashboard();
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "El precio y stock deben ser valores numéricos válidos", Alert.AlertType.ERROR);
+        }
+    }
+
 }

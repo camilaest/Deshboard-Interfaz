@@ -1,58 +1,59 @@
 package co.edu.uniquindio.fx10.ViewController;
 
-
-import co.edu.uniquindio.fx10.modelo.Producto;
-import co.edu.uniquindio.fx10.modelo.Propiedad;
-
 import java.util.ArrayList;
+import co.edu.uniquindio.fx10.modelo.*;
 
+public class PropiedadRepository {
 
-public class ViewController {
+    private static PropiedadRepository instance;
+    private final ArrayList<Propiedad> listaPropiedades;
+    private final DataBase db = DataBase.getInstance();
 
-    org.uniquindio.edu.co.poo.model.DataBase db = org.uniquindio.edu.co.poo.model.DataBase.getInstance();
-    private static ViewController instancia;
-    private ArrayList<listaPropiedades> productos;
-
-    private ViewController() {
-        productos = new ArrayList<>();
+    private PropiedadRepository() {
+        listaPropiedades = new ArrayList<>();
         cargarDatosEjemplo();
     }
 
 
+    public static PropiedadRepository getInstance() {
+        if (instance == null) {
+            instance = new PropiedadRepository();
+        }
+        return instance;
+    }
 
 
     private void cargarDatosEjemplo() {
-        productos.add(new Producto("P001", "Laptop Dell", "Laptop Dell Inspiron 15", 1200.00, 10));
-        productos.add(new Producto("P002", "Mouse Logitech", "Mouse inalámbrico Logitech MX Master", 89.99, 25));
-        productos.add(new Producto("P003", "Teclado Mecánico", "Teclado mecánico RGB", 150.00, 15));
+        listaPropiedades.add(new Propiedad("Bogota", 5, 6, 5000, "2e"));
+        listaPropiedades.add(new Propiedad("Vienna", 2, 1, 40000, "3r"));
+        listaPropiedades.add(new Propiedad("Cartagena", 3, 4, 20000, "4t"));
     }
 
 
-    public ArrayList<Propiedad> getProductos() {
+    public ArrayList<Propiedad> getPropiedades() {
         return listaPropiedades;
     }
 
-
-    public void agregarProducto(Producto producto) {
-        productos.add(producto);
+    public void agregarPropiedad(Propiedad propiedad) {
+        listaPropiedades.add(propiedad);
     }
 
-
-    public boolean eliminarProducto(Producto producto) {
-        return productos.remove(producto);
+    public boolean eliminarPropiedad(Propiedad propiedad) {
+        return listaPropiedades.remove(propiedad);
     }
 
-
-    public Producto buscarPorCodigo(String codigo) {
-        return productos.stream()
-                .filter(p -> p.getCodigo().equals(codigo))
+    public Propiedad buscarPorDireccion(String codigo) {
+        return listaPropiedades.stream()
+                .filter(p -> p.getDireccion().equalsIgnoreCase(codigo))
                 .findFirst()
                 .orElse(null);
     }
 
+    public int getCantidadPropiedades() {
+        return listaPropiedades.size();
+    }
 
-    public int getCantidadProductos() {
-        return productos.size();
+    public void mostrarFormularioProducto(){
+
     }
 }
-
