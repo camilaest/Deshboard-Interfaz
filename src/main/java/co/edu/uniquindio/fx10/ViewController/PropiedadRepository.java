@@ -1,26 +1,24 @@
-package co.edu.uniquindio.fx10.repositorio;
+package co.edu.uniquindio.fx10.ViewController;
+
 
 import co.edu.uniquindio.fx10.modelo.Producto;
+import co.edu.uniquindio.fx10.modelo.Propiedad;
+
 import java.util.ArrayList;
-import java.util.List;
 
 
-public class ProductoRepository {
-    private static ProductoRepository instancia;
-    private ArrayList<Producto> productos;
+public class ViewController {
 
-    private ProductoRepository() {
+    org.uniquindio.edu.co.poo.model.DataBase db = org.uniquindio.edu.co.poo.model.DataBase.getInstance();
+    private static ViewController instancia;
+    private ArrayList<listaPropiedades> productos;
+
+    private ViewController() {
         productos = new ArrayList<>();
         cargarDatosEjemplo();
     }
 
 
-    public static ProductoRepository getInstancia() {
-        if (instancia == null) {
-            instancia = new ProductoRepository();
-        }
-        return instancia;
-    }
 
 
     private void cargarDatosEjemplo() {
@@ -30,8 +28,8 @@ public class ProductoRepository {
     }
 
 
-    public ArrayList<Producto> getProductos() {
-        return productos;
+    public ArrayList<Propiedad> getProductos() {
+        return listaPropiedades;
     }
 
 

@@ -1,22 +1,17 @@
 package co.edu.uniquindio.fx10.controlador;
 
-import co.edu.uniquindio.fx10.App;
-import co.edu.uniquindio.fx10.modelo.Producto;
-import co.edu.uniquindio.fx10.repositorio.ProductoRepository;
+import co.edu.uniquindio.fx10.modelo.Propiedad;
+import co.edu.uniquindio.fx10.modelo.PropiedadRepository;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-
 /**
- * Controlador para el formulario de creación de productos
+ * Controlador para el formulario de creación de propiedades
  */
-public class FormularioProductoController {
+public class FormularioPropiedadController {
 
     @FXML
     private TextField txtCodigo;
@@ -31,78 +26,69 @@ public class FormularioProductoController {
     private TextField txtPrecio;
 
     @FXML
-    private TextField txtStock;
-
-    @FXML
     private Button btnGuardar;
 
     @FXML
     private Button btnCancelar;
 
-    private ProductoRepository productoRepository;
+    private PropiedadRepository propiedadRepository;
     private DashboardController dashboardController;
     private VBox contenedorPrincipal;
 
     @FXML
     public void initialize() {
-        productoRepository = ProductoRepository.getInstancia();
+        propiedadRepository = PropiedadRepository.getInstance(); // ✅ método Singleton
     }
-
 
     public void setDashboardController(DashboardController dashboardController) {
         this.dashboardController = dashboardController;
     }
 
-
-
+    /**
+     * Guarda una nueva propiedad validando los campos
+     */
     @FXML
-    private void onGuardarProducto() {
-        if (!validarCampos()) {
-            return;
-        }
+    private void onGuardarPropiedad() {
+        if (!validarCampos()) return;
 
         try {
             String codigo = txtCodigo.getText().trim();
             String nombre = txtNombre.getText().trim();
             String descripcion = txtDescripcion.getText().trim();
             double precio = Double.parseDouble(txtPrecio.getText().trim());
-            int stock = Integer.parseInt(txtStock.getText().trim());
 
             // Verificar si el código ya existe
-            if (productoRepository.buscarPorCodigo(codigo) != null) {
-                mostrarAlerta("Error", "Ya existe un producto con ese código", Alert.AlertType.ERROR);
+            if (propiedadRepository.buscarPorCodigo(codigo) != null) {
+                mostrarAlerta("Error", "Ya existe una propiedad con ese código", Alert.AlertType.ERROR);
                 return;
             }
 
-            // Crear y guardar el producto
-            Producto nuevoProducto = new Producto(codigo, nombre, descripcion, precio, stock);
-            productoRepository.agregarProducto(nuevoProducto);
+            // Crear y guardar la nueva propiedad
+            Propiedad nuevaPropiedad = new Propiedad(codigo, nombre, descripcion, precio);
+            propiedadRepository.agregarPropiedad(nuevaPropiedad);
 
-            mostrarAlerta("Éxito", "Producto creado correctamente", Alert.AlertType.INFORMATION);
-            
-            // Volver al dashboard
+            mostrarAlerta("Éxito", "Propiedad registrada correctamente", Alert.AlertType.INFORMATION);
             volverAlDashboard();
 
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "El precio y stock deben ser valores numéricos válidos", Alert.AlertType.ERROR);
+            mostrarAlerta("Error", "El precio debe ser un valor numérico válido", Alert.AlertType.ERROR);
         }
     }
 
-
-
     @FXML
     private void onCancelar() {
-        dashboardController.volverAlDashboard();
+        volverAlDashboard();
     }
 
     private void volverAlDashboard() {
-        dashboardController.volverAlDashboard();
+        if (dashboardController != null) {
+            dashboardController.volverAlDashboard();
+        }
     }
 
-
-
-
-
+    /**
+     * Valida que todos los campos tengan datos
+     */
     private boolean validarCampos() {
         if (txtCodigo.getText().trim().isEmpty()) {
             mostrarAlerta("Error de validación", "El código es obligatorio", Alert.AlertType.WARNING);
@@ -120,13 +106,8 @@ public class FormularioProductoController {
             mostrarAlerta("Error de validación", "El precio es obligatorio", Alert.AlertType.WARNING);
             return false;
         }
-        if (txtStock.getText().trim().isEmpty()) {
-            mostrarAlerta("Error de validación", "El stock es obligatorio", Alert.AlertType.WARNING);
-            return false;
-        }
         return true;
     }
-
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alerta = new Alert(tipo);
@@ -136,4 +117,3 @@ public class FormularioProductoController {
         alerta.showAndWait();
     }
 }
-

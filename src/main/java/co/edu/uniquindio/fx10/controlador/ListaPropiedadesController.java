@@ -1,7 +1,7 @@
 package co.edu.uniquindio.fx10.controlador;
 
 import co.edu.uniquindio.fx10.modelo.Producto;
-import co.edu.uniquindio.fx10.repositorio.ProductoRepository;
+import co.edu.uniquindio.fx10.ViewController.PropiedadRepository;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -28,7 +28,7 @@ public class ListaProductosController {
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
 
         tablaProductos.setItems(FXCollections.observableArrayList(
-                ProductoRepository.getInstancia().getProductos()
+                PropiedadRepository.getInstancia().getProductos()
         ));
     }
 
