@@ -38,9 +38,11 @@ public class PropiedadRepository {
         listaPropiedades.add(propiedad);
     }
 
-    public boolean eliminarPropiedad(Propiedad propiedad) {
+   /* public boolean eliminarPropiedad(Propiedad propiedad) {
         return listaPropiedades.remove(propiedad);
     }
+
+    */
 
     public Propiedad buscarPorDireccion(String codigo) {
         return listaPropiedades.stream()
@@ -55,5 +57,9 @@ public class PropiedadRepository {
 
     public void mostrarFormularioProducto(){
 
+    }
+
+    public void eliminarPropiedad(Propiedad propiedad) {
+        listaPropiedades.remove(propiedad);
     }
 }

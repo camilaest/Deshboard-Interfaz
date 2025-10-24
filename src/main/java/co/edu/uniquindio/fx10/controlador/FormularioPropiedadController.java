@@ -13,8 +13,7 @@ import javafx.scene.layout.VBox;
  * Controlador para el formulario de creación de propiedades
  */
 public class FormularioPropiedadController {
-    @FXML
-    private TextField txtDireccion;
+
 
     @FXML
     private TextField txtciudad;
@@ -59,19 +58,15 @@ public class FormularioPropiedadController {
 
         try {
             String ciudad = txtciudad.getText().trim();
-            String nHabitaciones = txtnhabitaciones.getText().trim();
-            String nPisos = txtnpisos.getText().trim();
+            int nHabitaciones = Integer.parseInt(txtnhabitaciones.getText());
+            int nPisos = Integer.parseInt(txtnpisos.getText().trim());
             double precio = Double.parseDouble(txtprecio.getText().trim());
             String direccion = txtdireccion.getText().trim();
 
-            // Verificar si el código ya existe
-            if (propiedadRepository.buscarPorDireccion(direccion) != null) {
-                mostrarAlerta("Error", "Ya existe una propiedad con ese código", Alert.AlertType.ERROR);
-                return;
-            }
+
 
             // Crear y guardar la nueva propiedad
-            Propiedad nuevaPropiedad = new Propiedad("armenia", 5, 6, 30, "e2");
+            Propiedad nuevaPropiedad = new Propiedad(ciudad,nHabitaciones,nPisos,precio,direccion);
             propiedadRepository.agregarPropiedad(nuevaPropiedad);
 
             mostrarAlerta("Éxito", "Propiedad registrada correctamente", Alert.AlertType.INFORMATION);
@@ -124,36 +119,5 @@ public class FormularioPropiedadController {
         alerta.showAndWait();
     }
 
-    public void onGuardarProducto(ActionEvent actionEvent) {
-        if (!validarCampos()) {
-            return;
-        }
-
-        try {
-            String codigo = txtciudad.getText().trim();
-            String nombre = txtnhabitaciones.getText().trim();
-            String nhabitaciones = txtnpisos.getText().trim();
-            double npisos = Double.parseDouble(txtprecio.getText().trim());
-            String direccion = txtDireccion.getText().trim();
-
-            // Verificar si el código ya existe
-            if (propiedadRepository.buscarPorDireccion(codigo) != null) {
-                mostrarAlerta("Error", "Ya existe un producto con ese código", Alert.AlertType.ERROR);
-                return;
-            }
-
-            // Crear y guardar el producto
-            Propiedad nuevoPropiedad = new Propiedad("arm", 5, 6, 7000, "ss3");
-            propiedadRepository.agregarPropiedad(nuevoPropiedad);
-
-            mostrarAlerta("Éxito", "Producto creado correctamente", Alert.AlertType.INFORMATION);
-
-            // Volver al dashboard
-            volverAlDashboard();
-
-        } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "El precio y stock deben ser valores numéricos válidos", Alert.AlertType.ERROR);
-        }
-    }
 
 }

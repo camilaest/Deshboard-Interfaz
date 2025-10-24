@@ -4,9 +4,12 @@ import co.edu.uniquindio.fx10.modelo.Propiedad;
 import co.edu.uniquindio.fx10.ViewController.PropiedadRepository;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 /**
  * Controlador para la vista de lista de propiedades
@@ -64,13 +67,42 @@ public class ListaPropiedadesController {
      * Acción para volver al Dashboard
      */
 
-
+//holaa
     @FXML
     private void onVolver() {
         if (dashboardController != null) {
             dashboardController.volverAlDashboard();
         }
 
+    }
+
+    @FXML
+    private void onEliminarPropiedad() {
+        Propiedad seleccionada = tablaPropiedades.getSelectionModel().getSelectedItem();
+
+        if (seleccionada != null) {
+            // Confirmación opcional
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar eliminación");
+            confirmacion.setHeaderText("¿Deseas eliminar esta propiedad?");
+            confirmacion.setContentText("Ciudad: " + seleccionada.getCiudad());
+
+            confirmacion.showAndWait().ifPresent(respuesta -> {
+                if (respuesta == ButtonType.OK) {
+                    // Eliminar de la tabla
+                    tablaPropiedades.getItems().remove(seleccionada);
+
+                    // Eliminar del repositorio
+                    PropiedadRepository.getInstance().eliminarPropiedad(seleccionada);
+                }
+            });
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.WARNING);
+            alerta.setTitle("Sin selección");
+            alerta.setHeaderText("No se ha seleccionado ninguna propiedad");
+            alerta.setContentText("Selecciona una propiedad para eliminar.");
+            alerta.showAndWait();
+        }
     }
 
 

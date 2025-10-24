@@ -32,19 +32,19 @@ public  class Propiedad {
         this.ciudad = ciudad;
     }
 
-    public int getnHabitaciones() {
+    public int getNHabitaciones() {
         return nHabitaciones;
     }
 
-    public void setnHabitaciones(int nHabitaciones) {
+    public void setNHabitaciones(int nHabitaciones) {
         this.nHabitaciones = nHabitaciones;
     }
 
-    public int getnPisos() {
+    public int getNPisos() {
         return nPisos;
     }
 
-    public void setnPisos(int nPisos) {
+    public void setNPisos(int nPisos) {
         this.nPisos = nPisos;
     }
 

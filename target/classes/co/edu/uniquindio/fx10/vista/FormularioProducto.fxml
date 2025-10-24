@@ -32,24 +32,21 @@
 
         <GridPane hgap="15" vgap="20">
 
-            <Label style="-fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold;" text="Ciudad" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="txtnhabitaciones" promptText="Ingrese cantidad de habitaciones" style="-fx-font-size: 14px; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Label text="Ciudad" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="txtciudad" promptText="Ingrese la ciudad" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
+            <Label text="Número de Pisos" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <TextField fx:id="txtnpisos" promptText="Ingrese número de pisos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-            <Label style="-fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold;" text="NumeroPisos" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <TextField fx:id="txtciudad" promptText="Ingrese la ciudad" style="-fx-font-size: 14px; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Cantidad de Habitaciones" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="txtnhabitaciones" promptText="Ingrese cantidad de habitaciones" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
+            <Label text="Precio" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="txtprecio" promptText="Ingrese el precio" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-            <Label style="-fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold;" text="Cantidad Cuartos" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="txtnpisos" promptText="Ingrese numero pisos" style="-fx-font-size: 14px; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Dirección" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="txtdireccion" promptText="Ingrese la dirección" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-            <!-- Precio -->
-            <Label style="-fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold;" text="precio:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <TextField fx:id="txtprecio" promptText="Ingrese el precio" style="-fx-font-size: 14px; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-
-
-            <Label style="-fx-text-fill: #34495e; -fx-font-size: 14px; -fx-font-weight: bold;" text="direccion" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="txtdireccion" promptText="Ingrese la direccion" style="-fx-font-size: 14px; -fx-padding: 8;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
             <columnConstraints>
                 <ColumnConstraints minWidth="120" prefWidth="120" />
@@ -70,7 +67,7 @@
                 <Insets top="20" />
             </VBox.margin>
             <Button fx:id="btnCancelar" onAction="#onCancelar" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 25; -fx-cursor: hand; -fx-background-radius: 5;" text="Cancelar" />
-            <Button fx:id="btnGuardar" onAction="#onGuardarProducto" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 25; -fx-cursor: hand; -fx-background-radius: 5;" text="Guardar Producto">
+            <Button fx:id="btnGuardar" onAction="#onGuardarPropiedad" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 25; -fx-cursor: hand; -fx-background-radius: 5;" text="Guardar Producto">
                 <font>
                     <Font name="System Bold" size="14" />
                 </font>
